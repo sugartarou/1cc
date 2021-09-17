@@ -7,6 +7,6 @@ test: 1cc
 	./test.sh
 
 clean:
-	rm -f $(all) *.o *~ tmp*
+	rm -f *.o *~ tmp* 1cc
 
 .PHONY: test clean
