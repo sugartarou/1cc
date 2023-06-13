@@ -9,9 +9,6 @@
 #define LABEL_MAIN    printf(".globl main\n")
 #define HEADER_MAIN   printf("main:\n")
 
-#define ERR(txt)      fprintf(stderr, txt)
-#define ERR_CHAR(txt, c) fprintf(stderr, txt, c)
-
 #define _MOV(a, b)    printf("  mov %s, %ld\n", a, b)
 #define _ADD(a, b)    printf("  add %s, %ld\n", a, b)
 #define _SUB(a, b)    printf("  sub %s, %ld\n", a, b)
@@ -27,7 +24,7 @@ typedef enum {
   TK_RECEIVED,  // 記号
   TK_NUM,       // 整数トークン
   TK_EOF,       // 入力の終わりを表すトークン
-}
+} TokenKind;
 
 typedef struct Token Token;
 
@@ -37,10 +34,10 @@ struct Token {
   Token *next;    // 次の入力トークン
   int val;        // kindがTK_NUMの場合、その数値
   char *str;      // トークン文字列
-}
+};
 
 // 現在着目しているトークン
-Token *cur_token;
+Token *token;
 
 // エラーを報告するための関数
 // printfと同じ引数を取る
@@ -125,7 +122,7 @@ Token *tokenize(char *p) {
 
 int main(int argc, char **argv){
   if(argc != 2){
-    ERR("引数の個数が正しくありません\n");
+    error("引数の個数が正しくありません\n");
     return 1;
   }
 
