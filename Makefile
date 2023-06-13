@@ -1,4 +1,4 @@
-all: 1cc
+all: 1cc test
 
 1cc: main.c
 	gcc $? -o $@ -O3
